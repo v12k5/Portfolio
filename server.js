@@ -1,13 +1,14 @@
 // server.js — PVK Portfolio Assistant with Project-Specific Context
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ----------------------------- 
 // 🧠 Base PVK Assistant Persona
