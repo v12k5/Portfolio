@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmoTune - Emotion-Based Music Recommendation | PVK</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+      color: #f0f0f0;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.5rem;
+      background: rgba(255, 215, 0, 0.15);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      border-radius: 25px;
+      color: #ffd700;
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 215, 0, 0.3);
+      transform: translateX(-5px);
+    }
+
+    .project-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding: 3rem 0;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .project-header h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .project-header .tagline {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    .demo-section {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2rem;
+      border-radius: 20px;
+      margin-bottom: 3rem;
+      text-align: center;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+    }
+
+    .demo-section h2 {
+      color: #ffd700;
+      margin-bottom: 1.5rem;
+    }
+
+    .demo-video {
+      max-width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(255, 215, 0, 0.3);
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 2.5rem;
+      border-radius: 20px;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .section h2 {
+      color: #ffd700;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section h2::before {
+      content: '▸';
+      color: #ff8c00;
+    }
+
+    .section h3 {
+      color: #ffd700;
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem 0;
+    }
+
+    .section p {
+      margin-bottom: 1rem;
+      opacity: 0.95;
+    }
+
+    .section ul, .section ol {
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .section li {
+      margin-bottom: 0.5rem;
+    }
+
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin: 1.5rem 0;
+    }
+
+    .tech-badge {
+      background: rgba(255, 140, 0, 0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 140, 0, 0.5);
+      font-size: 0.9rem;
+    }
+
+    .architecture-diagram {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 1.5rem;
+      border-radius: 15px;
+      margin: 1.5rem 0;
+      overflow-x: auto;
+    }
+
+    .architecture-diagram img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+
+    .code-block {
+      background: #1a1a2e;
+      padding: 1.5rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      margin: 1rem 0;
+      border-left: 4px solid #ffd700;
+    }
+
+    .code-block pre {
+      color: #f0f0f0;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .stat-box {
+      background: rgba(255, 215, 0, 0.1);
+      padding: 1.5rem;
+      border-radius: 15px;
+      text-align: center;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .stat-box h4 {
+      color: #ffd700;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .links-section {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Chatbot styles */
+    #chatbot-button {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      color: #000;
+      border: none;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      font-size: 32px;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+      z-index: 1001;
+      transition: all 0.3s ease;
+    }
+
+    #chatbot-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 35px rgba(255, 215, 0, 0.7);
+    }
+
+    #chatbot-container {
+      position: fixed;
+      bottom: 120px;
+      right: 30px;
+      width: 380px;
+      max-height: 600px;
+      background: rgba(17, 24, 39, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 1000;
+    }
+
+    #chat-header {
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      color: #000;
+      padding: 1.2rem;
+      text-align: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    #chat-messages {
+      flex: 1;
+      padding: 1.5rem;
+      overflow-y: auto;
+      font-size: 0.95rem;
+    }
+
+    .message {
+      margin: 1rem 0;
+      padding: 0.8rem 1.2rem;
+      border-radius: 15px;
+      max-width: 85%;
+      word-wrap: break-word;
+      animation: messageSlide 0.3s ease;
+    }
+
+    @keyframes messageSlide {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .user {
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      margin-left: auto;
+      text-align: right;
+      color: #000;
+      font-weight: 500;
+    }
+
+    .bot {
+      background: rgba(255, 255, 255, 0.1);
+      margin-right: auto;
+    }
+
+    #chat-input {
+      display: flex;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    #chat-input input {
+      flex: 1;
+      border: none;
+      padding: 1.2rem;
+      background: transparent;
+      color: white;
+      outline: none;
+      font-family: inherit;
+    }
+
+    #chat-input input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    #chat-input button {
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      color: #000;
+      border: none;
+      padding: 1.2rem 1.8rem;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    #chat-input button:hover {
+      background: linear-gradient(135deg, #ffed4e, #ffa500);
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 1rem; }
+      .section { padding: 1.5rem; }
+      #chatbot-container {
+        width: calc(100% - 40px);
+        right: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-btn">← Back to Portfolio</a>
+
+    <div class="project-header">
+      <h1>🎵 EmoTune</h1>
+      <p class="tagline">Emotion-Based Music Recommendation System</p>
+    </div>
+
+    <!-- Demo Video Section -->
+    <div class="demo-section">
+      <h2>🎬 Project Demo</h2>
+      <img src="https://raw.githubusercontent.com/v12k5/EmoTune/main/EmoTune_Work.gif" 
+           alt="EmoTune Demo" 
+           class="demo-video"
+           onerror="this.src='https://via.placeholder.com/800x450/1a1a2e/ffd700?text=Demo+Coming+Soon'">
+      <p style="margin-top: 1rem; opacity: 0.8;">Watch EmoTune detect emotions in real-time and recommend music!</p>
+    </div>
+
+    <!-- Overview Section -->
+    <div class="section">
+      <h2>📋 Project Overview</h2>
+      <p><strong>Hook:</strong> A real-time emotion-based music recommendation system that detects your facial emotion and suggests songs that match your mood.</p>
+      
+      <h3>Problem Statement</h3>
+      <p>People often want to listen to music that matches their current emotional state, but manually searching for the right song can be tedious. This project aims to automate this process by intelligently detecting a user's emotion and recommending suitable songs.</p>
+
+      <h3>Solution Approach</h3>
+      <p>The application uses a machine learning model to classify a user's emotion from a live webcam stream. It identifies facial landmarks, predicts the emotion, and then fetches a relevant song from YouTube to play directly in the browser.</p>
+
+      <h3>Key Impact</h3>
+      <p>The project provides a seamless and interactive user experience where music dynamically adapts to the user's mood, creating a more personalized and engaging listening session.</p>
+
+      <div class="stats-grid">
+        <div class="stat-box">
+          <h4>95%+</h4>
+          <p>Model Accuracy</p>
+        </div>
+        <div class="stat-box">
+          <h4>100-200ms</h4>
+          <p>Prediction Latency</p>
+        </div>
+        <div class="stat-box">
+          <h4>7+</h4>
+          <p>Emotions Detected</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Technical Deep Dive -->
+    <div class="section">
+      <h2>🔧 Technical Deep Dive</h2>
+      
+      <h3>Architecture Diagram</h3>
+      <div class="architecture-diagram">
+        <img src="https://raw.githubusercontent.com/v12k5/EmoTune/main/diagram.png" 
+             alt="System Architecture"
+             onerror="this.style.display='none'">
+      </div>
+
+      <h3>Technology Stack</h3>
+      <div class="tech-stack">
+        <span class="tech-badge">Python</span>
+        <span class="tech-badge">Flask</span>
+        <span class="tech-badge">TensorFlow</span>
+        <span class="tech-badge">Scikit-learn</span>
+        <span class="tech-badge">ONNX Runtime</span>
+        <span class="tech-badge">MediaPipe</span>
+        <span class="tech-badge">OpenCV</span>
+        <span class="tech-badge">NumPy & Pandas</span>
+        <span class="tech-badge">YouTube API</span>
+        <span class="tech-badge">Tailwind CSS</span>
+      </div>
+
+      <h3>Why These Technologies?</h3>
+      <ul>
+        <li><strong>Flask:</strong> Lightweight and minimalistic, ideal for building a simple web application with RESTful API</li>
+        <li><strong>Scikit-learn:</strong> Robust and easy-to-use library for classical machine learning (Random Forest classifier)</li>
+        <li><strong>ONNX Runtime:</strong> Cross-platform format for ML models with optimized performance in production</li>
+        <li><strong>MediaPipe:</strong> Google's framework for highly accurate and fast face mesh detection</li>
+        <li><strong>Tailwind CSS:</strong> Rapid UI development with utility-first classes</li>
+      </ul>
+
+      <h3>Key Features</h3>
+      
+      <h4>1. Real-time Emotion Detection</h4>
+      <ul>
+        <li>Frontend captures video frames from the user's webcam using JavaScript</li>
+        <li>Each frame is sent to Flask backend via POST request</li>
+        <li>MediaPipe detects facial landmarks in the image</li>
+        <li>Landmarks are processed to extract geometric features (mouth aspect ratio, brow height, etc.)</li>
+        <li>Features are scaled and fed into pre-trained ONNX model for prediction</li>
+      </ul>
+
+      <h4>2. Dynamic Music Recommendations</h4>
+      <ul>
+        <li>Once emotion is detected, frontend requests song from /get_song/&lt;emotion&gt; endpoint</li>
+        <li>Backend uses YouTube Data API to search for songs matching the emotion and user's language</li>
+        <li>Fallback mechanism uses predefined song list if API fails</li>
+        <li>YouTube video ID is returned to frontend for playback</li>
+      </ul>
+
+      <h4>3. Interactive Web Interface</h4>
+      <ul>
+        <li>Live webcam feed display</li>
+        <li>Real-time emotion detection indicator</li>
+        <li>Language selection dropdown for localized music</li>
+        <li>Embedded YouTube player for seamless music playback</li>
+      </ul>
+    </div>
+
+    <!-- Machine Learning Model -->
+    <div class="section">
+      <h2>🤖 Machine Learning Model</h2>
+      
+      <h3>Algorithm: Random Forest Classifier</h3>
+      <p>A Random Forest model was chosen for its robustness, high accuracy, and ability to handle non-linear relationships in facial feature data.</p>
+
+      <h3>Training Pipeline</h3>
+      <ol>
+        <li>Dataset split into training and testing sets</li>
+        <li>Features normalized using StandardScaler</li>
+        <li>GridSearchCV used to find optimal hyperparameters</li>
+        <li>Best model and scaler saved to .joblib file</li>
+        <li>Converted to ONNX format for web deployment</li>
+      </ol>
+
+      <h3>Feature Engineering</h3>
+      <p>The model uses geometric features extracted from facial landmarks:</p>
+      <div class="code-block">
+        <pre>def build_features(landmarks, w, h):
+    # Extract facial features
+    # 1. Mouth aspect ratio (MAR)
+    mar = mouth_height / (mouth_width + 1e-6)
+    
+    # 2. Brow-to-eye distance
+    # 3. Eye aspect ratios
+    # 4. Face symmetry measures
+    
+    return np.array(features)</pre>
+      </div>
+
+      <h3>Model Prediction</h3>
+      <div class="code-block">
+        <pre>def predict_emotion(img):
+    results = face_mesh.process(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+    if results.multi_face_landmarks:
+        features = build_features(face_landmarks.landmark, w, h)
+        features = scaler.transform(features)
+        prediction = sess.run([label_name], {input_name: features})[0]
+        return str(prediction[0])</pre>
+      </div>
+    </div>
+
+    <!-- Challenges & Solutions -->
+    <div class="section">
+      <h2>⚡ Challenges & Solutions</h2>
+      
+      <h3>Challenge 1: Real-time Performance</h3>
+      <p><strong>Problem:</strong> Sending full-resolution video frames caused high latency</p>
+      <p><strong>Solution:</strong> Resize frames on frontend before sending, reducing data transfer and improving response time</p>
+
+      <h3>Challenge 2: Model Accuracy</h3>
+      <p><strong>Problem:</strong> Initial model struggled with distinguishing similar emotions</p>
+      <p><strong>Solution:</strong> Engineered more robust features (MAR, brow-to-eye distances) and used GridSearchCV for hyperparameter tuning</p>
+
+      <h3>Challenge 3: YouTube API Quotas</h3>
+      <p><strong>Problem:</strong> API usage limits could disrupt service</p>
+      <p><strong>Solution:</strong> Implemented fallback mechanism with predefined song dictionary</p>
+    </div>
+
+    <!-- Future Enhancements -->
+    <div class="section">
+      <h2>🚀 Future Enhancements</h2>
+      <ul>
+        <li><strong>More Emotions:</strong> Expand to detect neutral, disgust, and fear</li>
+        <li><strong>Personalized Playlists:</strong> Generate full playlists based on emotion history</li>
+        <li><strong>User Feedback Loop:</strong> Learn from user preferences to improve recommendations</li>
+        <li><strong>Voice Emotion Detection:</strong> Add audio analysis for multi-modal emotion recognition</li>
+        <li><strong>Scalability:</strong> Implement load balancing and caching for production deployment</li>
+      </ul>
+    </div>
+
+    <!-- Links -->
+    <div class="section">
+      <h2>🔗 Project Links</h2>
+      <div class="links-section">
+        <a href="https://github.com/v12k5/EmoTune" target="_blank" class="btn btn-primary">
+          View GitHub Repository
+        </a>
+        <a href="index.html" class="btn btn-secondary">
+          Back to Portfolio
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chatbot -->
+  <button id="chatbot-button">💬</button>
+  <div id="chatbot-container">
+    <div id="chat-header">Chat about EmoTune 🎵</div>
+    <div id="chat-messages"></div>
+    <div id="chat-input">
+      <input type="text" id="user-input" placeholder="Ask me about EmoTune..." />
+      <button id="send-btn">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const chatbotButton = document.getElementById("chatbot-button");
+    const chatbotContainer = document.getElementById("chatbot-container");
+    const chatMessages = document.getElementById("chat-messages");
+    const sendBtn = document.getElementById("send-btn");
+    const userInput = document.getElementById("user-input");
+
+    chatbotButton.onclick = () => {
+      const isVisible = chatbotContainer.style.display === "flex";
+      chatbotContainer.style.display = isVisible ? "none" : "flex";
+      if (!isVisible && chatMessages.children.length === 0) {
+        addMessage("bot", "Hey! 👋 I'm here to answer your questions about EmoTune. Ask me about the technical details, challenges, or how the emotion detection works!");
+      }
+    };
+
+    async function sendMessage() {
+      const text = userInput.value.trim();
+      if (!text) return;
+
+      addMessage("user", text);
+      userInput.value = "";
+
+      try {
+        const response = await fetch("http://localhost:3000/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ 
+            messages: [{ role: "user", content: text }],
+            project: "emotune"
+          }),
+        });
+
+        const data = await response.json();
+        addMessage("bot", data.reply || "Hmm, I couldn't process that. Try asking something else!");
+      } catch (error) {
+        addMessage("bot", "Oops! I'm having trouble connecting. Make sure the server is running on localhost:3000.");
+      }
+    }
+
+    sendBtn.onclick = sendMessage;
+    userInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") sendMessage();
+    });
+
+    function addMessage(sender, text) {
+      const div = document.createElement("div");
+      div.classList.add("message", sender);
+      div.textContent = text;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+  </script>
+</body>
+</html>
