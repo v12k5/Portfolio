@@ -1,0 +1,10 @@
+    1 # Dependencies
+    2 /node_modules
+    3 
+    4 # Environment variables
+    5 .env
+    6 
+    7 # Logs
+    8 npm-debug.log*
+    9 yarn-debug.log*
+   10 yarn-error.log*
